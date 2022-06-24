@@ -8,7 +8,7 @@ export VISUAL="$EDITOR"
 export PAGER="nvr --nostart --remote-silent - "
 export IDE="nvr --nostart --remote-tab-silent "
 
-eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
+# eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
 
 source /home/$DEVENV_USER/dotfiles/zshrc
 

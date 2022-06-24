@@ -11,9 +11,9 @@ python3 -m pip install --upgrade pip
 pip3 install -U pynvim neovim-remote
 pip3 install 'python-language-server[all]'
 
-cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
-cpanm --local-lib=~/perl5 MsgPack::Raw
-cpanm --local-lib=~/perl5 Neovim::Ext
+cpanm -n --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
+sudo cpanm -n MsgPack::Raw
+sudo cpanm -n Neovim::Ext
 
 mkdir -p ~/.config/nvim
 
