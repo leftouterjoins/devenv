@@ -45,11 +45,9 @@ WORKDIR /home/${DEVENV_USER}
 ENV GOPATH=/home/${DEVENV_USER}/go
 ENV NVIM_LISTEN_ADDRESS=/home/${DEVENV_USER}/nvimsocket
 
-COPY base/zshrc /home/${DEVENV_USER}/.zshrc
-COPY base/init.vim /home/${DEVENV_USER}/.config/nvim/init.vim
 COPY dotfiles/setup.sh /home/${DEVENV_USER}/setup.sh
+COPY base/init.vim /home/${DEVENV_USER}/.config/nvim/init.vim
 COPY dotfiles/init.vim /home/${DEVENV_USER}/dotfiles/init.vim
-COPY dotfiles/zshrc /home/${DEVENV_USER}/dotfiles/zshrc
 
 COPY base/build-home.sh /home/${DEVENV_USER}/build-home.sh
 
@@ -57,8 +55,11 @@ RUN sudo chown -R ${DEVENV_USER}:${DEVENV_USER} /home/${DEVENV_USER} \
   && chmod +x /home/${DEVENV_USER}/*.sh \
   && /home/${DEVENV_USER}/build-home.sh 
 
+COPY base/zshrc /home/${DEVENV_USER}/.zshrc
+COPY dotfiles/zshrc /home/${DEVENV_USER}/dotfiles/zshrc
+
 VOLUME /home/${DEVENV_USER}/.config
 VOLUME /home/${DEVENV_USER}/host
 
-ENTRYPOINT ["nvim", "+cd ~/host"]
+ENTRYPOINT ["zsh", "-c", "nvim", "+cd ~/host"]
 
