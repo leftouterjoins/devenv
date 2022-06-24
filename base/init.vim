@@ -1,0 +1,2 @@
+source ~/dotfiles/init.vim
+

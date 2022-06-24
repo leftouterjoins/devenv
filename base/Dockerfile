@@ -1,31 +1,33 @@
 FROM ubuntu:21.10 AS devinstall
 
-ENV DEBIAN_FRONTEND=noninteractive
-ENV TZ=$DEVENV_TZ
+ARG DEVENV_USER
+ARG DEVENV_PASS
+ARG DEVENV_EMAIL
+ARG DEVENV_LOCALE
+ARG DEVENV_PKGS
 
-COPY src/build-install.sh /build-install.sh
+ENV TZ=$DEVENV_TZ
+ENV DEVENV_USER=$DEVENV_USER
+ENV DEVENV_PASS=$DEVENV_PASS
+ENV DEVENV_EMAIL=$DEVENV_EMAIL
+ENV DEVENV_LOCALE=$DEVENV_LOCALE
+ENV DEVENV_PKGS=$DEVENV_PKGS
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+COPY base/build-install.sh /build-install.sh
 RUN chmod +x /build-install.sh && /build-install.sh
 
 
 FROM devinstall AS devbase
 
-ARG DEVENV_USER
-ARG DEVENV_PASS
-ARG DEVENV_EMAIL
-ARG DEVENV_LOCALE
-
-ENV DEVENV_USER=$DEVENV_USER
-ENV DEVENV_PASS=$DEVENV_PASS
-ENV DEVENV_EMAIL=$DEVENV_EMAIL
-ENV DEVENV_LOCALE=$DEVENV_LOCALE
-
-COPY src/build-root.sh /build-root.sh
+COPY base/build-root.sh /build-root.sh
 RUN chmod +x /build-root.sh && /build-root.sh
 
 
 FROM devbase AS devinit
 
-COPY src/build-init-user.sh /build-init-user.sh
+COPY base/build-init-user.sh /build-init-user.sh
 
 USER ${DEVENV_USER}
 
@@ -43,18 +45,17 @@ WORKDIR /home/${DEVENV_USER}
 ENV GOPATH=/home/${DEVENV_USER}/go
 ENV NVIM_LISTEN_ADDRESS=/home/${DEVENV_USER}/nvimsocket
 
-COPY src/build-home.sh /home/${DEVENV_USER}/build-home.sh
-COPY src/zshrc /home/${DEVENV_USER}/.zshrc
-COPY src/vimrc /home/${DEVENV_USER}/.config/nvim/init.vim
+COPY base/zshrc /home/${DEVENV_USER}/.zshrc
+COPY base/init.vim /home/${DEVENV_USER}/.config/nvim/init.vim
+COPY dotfiles/setup.sh /home/${DEVENV_USER}/setup.sh
+COPY dotfiles/init.vim /home/${DEVENV_USER}/dotfiles/init.vim
+COPY dotfiles/zshrc /home/${DEVENV_USER}/dotfiles/zshrc
 
-COPY usr/zshrc /home/${DEVENV_USER}/.zshrc-user
-COPY usr/vimrc /home/${DEVENV_USER}/.config/nvim/init-user.vim
-COPY usr/build.sh /home/${DEVENV_USER}/build-user.sh
+COPY base/build-home.sh /home/${DEVENV_USER}/build-home.sh
 
 RUN sudo chown -R ${DEVENV_USER}:${DEVENV_USER} /home/${DEVENV_USER} \
   && chmod +x /home/${DEVENV_USER}/*.sh \
-  && /home/${DEVENV_USER}/build-home.sh \
-  && /home/${DEVENV_USER}/build-user.sh
+  && /home/${DEVENV_USER}/build-home.sh 
 
 VOLUME /home/${DEVENV_USER}/.config
 VOLUME /home/${DEVENV_USER}/host

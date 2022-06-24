@@ -1,24 +1,23 @@
-version: '3.8'
+version: '4.8'
 services:
   devenv:
+    image: devenv
+    container_name: devenv
     build:
       context: .
+      dockerfile: base/Dockerfile
       args:
         - "DEVENV_USER=${DEVENV_USER}"
         - "DEVENV_PASS=${DEVENV_PASS}"
         - "DEVENV_EMAIL=${DEVENV_EMAIL}"
         - "DEVENV_LOCALE=${DEVENV_LOCALE}"
-    container_name: devenv
-    environment:
-      - "DEVENV_USER=${DEVENV_USER}"
-      - "DEVENV_PASS=${DEVENV_PASS}"
-      - "DEVENV_EMAIL=${DEVENV_EMAIL}"
-      - "DEVENV_LOCALE=${DEVENV_LOCALE}"
+        - "DEVENV_MOUNT_PATH=${DEVENV_MOUNT_PATH}"
+        - "DEVENV_PKGS=${DEVENV_PKGS}"
+        - "PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/home/${DEVENV_USER}/perl5/bin"
     volumes:
       - ${DEVENV_MOUNT_PATH}:/home/${DEVENV_USER}/host
-      - config:/home/${DEVENV_USER}/.config:z
     extra_hosts:
       - "host.docker.internal:host-gateway"
-volumes:
-  config:
-
+    environment:
+      - DEVENV_USER=${DEVENV_USER}
+      - PATH="$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/home/$DEVENV_USER/perl5/bin"

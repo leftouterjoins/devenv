@@ -2,8 +2,8 @@
 
 useradd -m $DEVENV_USER
 
-chsh root -s /usr/bin/zsh
-chsh $DEVENV_USER -s /usr/bin/zsh
+chsh root -s $(which zsh)
+chsh $DEVENV_USER -s $(which zsh)
 
 echo 'root:password' | chpasswd
 echo '$DEVENV_USER:$DEVENV_PASS' | chpasswd
