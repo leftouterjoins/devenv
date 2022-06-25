@@ -5,5 +5,5 @@ build:
 	chmod +x dotfiles/setup.sh
 	docker compose build devenv
 run:
-	docker compose run --rm devenv
+	docker compose run devenv
 

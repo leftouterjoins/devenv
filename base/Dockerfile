@@ -38,21 +38,16 @@ RUN ./build-init-user.sh
 FROM devinit AS devenv
 USER ${DEVENV_USER}
 WORKDIR /home/${DEVENV_USER}
-
 COPY dotfiles/setup.sh /home/${DEVENV_USER}/setup.sh
 COPY base/init.vim /home/${DEVENV_USER}/.config/nvim/init.vim
 COPY dotfiles/init.vim /home/${DEVENV_USER}/dotfiles/init.vim
 COPY base/build-home.sh /home/${DEVENV_USER}/build-home.sh
-
 RUN /home/${DEVENV_USER}/build-home.sh
-
 COPY base/zshrc /home/${DEVENV_USER}/.zshrc
 COPY dotfiles/zshrc /home/${DEVENV_USER}/dotfiles/zshrc
-
-VOLUME /home/${DEVENV_USER}/.config
-VOLUME /home/${DEVENV_USER}/host
-
 COPY base/start.sh /home/${DEVENV_USER}/start.sh
 
-ENTRYPOINT ["/home/josh/start.sh"]
+VOLUME /home/${DEVENV_USER}/host
+
+ENTRYPOINT ["./start.sh"]
 

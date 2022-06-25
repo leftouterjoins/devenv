@@ -15,5 +15,6 @@ services:
         - "PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/home/${DEVENV_USER}/perl5/bin"
     volumes:
       - ${DEVENV_MOUNT_PATH}:/home/${DEVENV_USER}/host
+      - ./dotfiles:/home/${DEVENV_USER}/all_dotfiles
     extra_hosts:
       - "host.docker.internal:host-gateway"

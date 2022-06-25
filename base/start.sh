@@ -1,5 +1,5 @@
 #!/usr/bin/zsh
 
-source /home/josh/.zshrc
-nvim +cd ~/host
+source /home/$DEVENV_USER/.zshrc
+nvim +cd ~/
 
