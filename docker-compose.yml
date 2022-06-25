@@ -16,5 +16,10 @@ services:
     volumes:
       - ${DEVENV_MOUNT_PATH}:/home/${DEVENV_USER}/host
       - ./dotfiles:/home/${DEVENV_USER}/all_dotfiles
+      - copilot:/home/${DEVENV_USER}/.config/github-copilot
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    user: "${DEVENV_USER}"
+volumes:
+  copilot:
+
