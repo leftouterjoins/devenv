@@ -2,5 +2,5 @@
 
 source /home/$DEVENV_USER/.zshrc
 
-nvr --nostart --remote-silent $1
+nvr --nostart --remote-silent ~/host/$1
 
