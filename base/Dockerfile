@@ -46,8 +46,7 @@ RUN /home/${DEVENV_USER}/build-home.sh
 COPY base/zshrc /home/${DEVENV_USER}/.zshrc
 COPY dotfiles/zshrc /home/${DEVENV_USER}/dotfiles/zshrc
 COPY base/start.sh /home/${DEVENV_USER}/start.sh
-
+COPY base/open.sh /home/${DEVENV_USER}/open.sh
 VOLUME /home/${DEVENV_USER}/host
-
 ENTRYPOINT ["./start.sh"]
 
