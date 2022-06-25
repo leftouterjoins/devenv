@@ -17,6 +17,3 @@ services:
       - ${DEVENV_MOUNT_PATH}:/home/${DEVENV_USER}/host
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    environment:
-      - DEVENV_USER=${DEVENV_USER}
-      - PATH="$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/home/$DEVENV_USER/perl5/bin"

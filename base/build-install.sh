@@ -17,16 +17,15 @@ dpkg-reconfigure locales
 ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 dpkg-reconfigure tzdata
 
-INSTALL_CMD="apt install --no-install-recommends -y zsh python2 python3 python3-pip ruby ruby-all-dev nodejs npm sudo curl perl git build-essential"
-$INSTALL_CMD
+apt install --no-install-recommends -y zsh python2 python3 python3-pip ruby ruby-all-dev nodejs npm sudo curl perl git build-essential
 
 gem install neovim
-
 
 npm install -g n
 npm install -g neovim
 
 curl -sfL https://cpanmin.us | perl - App::cpanminus
+cpanm --local-lib=/home/$DEVENV_USER/perl5 local::lib && eval $(perl -I /home/$DEVENV_USER/perl5/lib/perl5/ -Mlocal::lib)
 
 curl -s https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
 python2 get-pip.py
