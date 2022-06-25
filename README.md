@@ -31,3 +31,11 @@ These will be made available in the container at `~/all_dotfiles`.
 install vim-plug and setup a PHP 8 development environment. `init.vim` should contain your vim config and `zshrc` should contain
 setup for zsh like your personal environment variables, aliases, functions, etc.
 
+Any time you make changes to your dotfiles and are ready to try them out in your environment simply run the build command again.
+
+    make build
+
+Once the image is built with all of your additions you can begin using it.
+
+    make run
+
