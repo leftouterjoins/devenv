@@ -1,4 +1,4 @@
-version: '4.8'
+version: '3.9'
 services:
   devenv:
     image: devenv
@@ -20,6 +20,8 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     user: "${DEVENV_USER}"
+    ports:
+      - 9003:9003
 volumes:
   copilot:
 

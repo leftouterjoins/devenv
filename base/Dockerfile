@@ -1,4 +1,4 @@
-FROM ubuntu:21.10 AS devinstall
+FROM ubuntu:22.04 AS devinstall
 
 
 ARG TZ
