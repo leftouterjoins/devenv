@@ -12,6 +12,10 @@ services:
         - "DEVENV_EMAIL=${DEVENV_EMAIL}"
         - "DEVENV_LOCALE=${DEVENV_LOCALE}"
         - "DEVENV_MOUNT_PATH=${DEVENV_MOUNT_PATH}"
+        - "DEVENV_GH_USER=${DEVENV_GH_USER}"
+        - "DEVENV_GH_PASS=${DEVENV_GH_PASS}"
+        - "DEVENV_SH_USER=${DEVENV_SH_USER}"
+        - "DEVENV_SH_PASS=${DEVENV_SH_PASS}"
         - "PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/home/${DEVENV_USER}/perl5/bin"
     volumes:
       - ${DEVENV_MOUNT_PATH}:/home/${DEVENV_USER}/host
