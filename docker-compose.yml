@@ -26,6 +26,8 @@ services:
     user: "${DEVENV_USER}"
     ports:
       - 9003:9003
+    stdin_open: true
+    tty: true
 volumes:
   copilot:
 
