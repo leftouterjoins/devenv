@@ -47,14 +47,19 @@ FROM devinit AS devenv
 USER ${DEVENV_USER}
 WORKDIR /home/${DEVENV_USER}
 COPY dotfiles/setup.sh /home/${DEVENV_USER}/setup.sh
-COPY base/init.vim /home/${DEVENV_USER}/.config/nvim/init.vim
-COPY dotfiles/init.vim /home/${DEVENV_USER}/dotfiles/init.vim
 COPY base/build-home.sh /home/${DEVENV_USER}/build-home.sh
 RUN /home/${DEVENV_USER}/build-home.sh
+
+COPY base/init.vim /home/${DEVENV_USER}/.config/nvim/init.vim
+COPY dotfiles/init.vim /home/${DEVENV_USER}/dotfiles/init.vim
 COPY base/zshrc /home/${DEVENV_USER}/.zshrc
 COPY dotfiles/zshrc /home/${DEVENV_USER}/dotfiles/zshrc
 COPY base/start.sh /home/${DEVENV_USER}/start.sh
 COPY base/open.sh /home/${DEVENV_USER}/open.sh
+RUN sh -c "$(curl -fLsS https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+RUN rm ~/.zshrc
+RUN mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
+RUN nvim --headless +PlugInstall +qall
 VOLUME /home/${DEVENV_USER}/host
 ENTRYPOINT ["./start.sh"]
 
