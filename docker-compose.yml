@@ -18,9 +18,9 @@ services:
         - "DEVENV_SH_PASS=${DEVENV_SH_PASS}"
         - "PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/home/${DEVENV_USER}/perl5/bin"
     volumes:
-      - ${DEVENV_MOUNT_PATH}:/home/${DEVENV_USER}/host
-      - ./dotfiles:/home/${DEVENV_USER}/all_dotfiles
-      - copilot:/home/${DEVENV_USER}/.config/github-copilot
+      - "${DEVENV_MOUNT_PATH}:/home/${DEVENV_USER}/host"
+      - "./dotfiles:/home/${DEVENV_USER}/all_dotfiles"
+      - "copilot:/home/${DEVENV_USER}/.config/github-copilot"
     extra_hosts:
       - "host.docker.internal:host-gateway"
     user: "${DEVENV_USER}"
