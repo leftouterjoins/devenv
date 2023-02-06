@@ -23,7 +23,7 @@ services:
       - "copilot:/home/${DEVENV_USER}/.config/github-copilot"
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    user: "${DEVENV_USER}"
+    user: 1000:1000
     ports:
       - 9003:9003
     stdin_open: true
